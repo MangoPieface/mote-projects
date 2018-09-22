@@ -7,7 +7,7 @@ items = ['rainbow', 'static-rainbow', 'test']
 
 random.shuffle(items)
 
-fileToLoad = ('/home/pi/mote/python/examples/{0}.py'.format(items[:1][0]))
+fileToLoad = ('/home/pi/mote-projects/{0}.py'.format(items[:1][0]))
 
 print(fileToLoad)
 
