@@ -23,7 +23,7 @@ def mote_on(c):
     r, g, b = hex_to_rgb(c)
     testforwhite = c.lstrip('#')
     if  testforwhite == 'FFFFFF':
-	exec(open("rainbow.py"))
+	    exec(open("rainbow.py"))
     else:
     	for channel in range(4):
         	for pixel in range(12):
@@ -51,11 +51,17 @@ def set_status(st):
     global status, colour
     if st == 'on':
         status = 1
-	#exec(open("rainbow.py"))
-	#if colour == 'FFFFFF':
-	#	colour = 'B8995F'
-		#exec(open("test.py"))
         mote_on(colour)
+        brightness = 0
+        for h in range(1000):
+            for channel in range(4):
+                for pixel in range(mote.get_pixel_count(channel + 1)):
+                    hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
+                    r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+                    mote.set_pixel(channel + 1, pixel, r, g, b)
+            mote.show()
+            time.sleep(0.01)
+            if brightness < 255: brightness += 1        
     elif st == 'off':
         status = 0
         mote_off()

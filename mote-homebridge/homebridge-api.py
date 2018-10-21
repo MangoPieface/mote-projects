@@ -1,3 +1,4 @@
+import time
 from colorsys import hsv_to_rgb, rgb_to_hsv
 from mote import Mote
 from flask import Flask, jsonify, make_response
@@ -20,19 +21,10 @@ def hex_to_rgb(value):
 
 def mote_on(c):
     r, g, b = hex_to_rgb(c)
-    #I don't now why I've had to split this out in this odd way
-    #the web service was throwing a hissy fit if I didn't
-    #and my children were bugging me to stop faffing and play with them
-    #so this is how it's staying as it seems to work
-    for pixel in range(16):
-        mote.set_pixel(1, pixel, r, g, b)
-        mote.set_pixel(2, pixel, r, g, b)
+    for channel in range(4):
+        for pixel in range(10):
+            mote.set_pixel(channel + 1, pixel, r, g, b)
     mote.show()
-
-    for pixel in range(16):
-        mote.set_pixel(3, pixel, r, g, b)
-        mote.set_pixel(4, pixel, r, g, b)
-    mote.show()    
     return True
 
 def mote_off():
