@@ -13,6 +13,8 @@ mote.configure_channel(4, 16, False)
 
 colour = 'B8995F'
 status = 0
+num_pixels = 16
+num_channels = 4
 
 def hex_to_rgb(value):
     value = value.lstrip('#')
@@ -20,14 +22,16 @@ def hex_to_rgb(value):
     return tuple(int(value[i:i + length / 3], 16) for i in range(0, length, length / 3))
 
 def mote_on(c):
+    global num_pixels
+    global num_channels
     r, g, b = hex_to_rgb(c)
     testforwhite = c.lstrip('#')
     if  testforwhite == 'FFFFFF':
-	    exec(open("rainbow.py"))
+	    exec(open("./rainbow.py"))
     else:
-    	for channel in range(4):
-        	for pixel in range(12):
-            		mote.set_pixel(channel + 1, pixel, r, g, b)
+    	for channel in range(num_channels):
+        	for pixel in range(num_pixels):
+            		mote.set_pixel(channel + 1, pixel, 255, 228, 225)
     			mote.show()
     return True
 
@@ -38,8 +42,11 @@ def mote_off():
 
 def get_status():
     global status
-    for channel in range(4):
-        for pixel in range(12):
+    global num_channels
+    global num_pixels
+
+    for channel in range(num_channels):
+        for pixel in range(num_pixels):
             if mote.get_pixel(channel + 1, pixel) != (0, 0, 0):
                 status = 1
             else:
@@ -48,13 +55,13 @@ def get_status():
 
 @app.route('/mote/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
-    global status, colour
+    global status, colour, num_channels, num_pixels
     if st == 'on':
         status = 1
         mote_on(colour)
         brightness = 0
         for h in range(1000):
-            for channel in range(4):
+            for channel in range(num_channels):
                 for pixel in range(mote.get_pixel_count(channel + 1)):
                     hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
                     r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
