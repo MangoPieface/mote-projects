@@ -31,8 +31,8 @@ def mote_on(c):
     else:
     	for channel in range(num_channels):
         	for pixel in range(num_pixels):
-            		mote.set_pixel(channel + 1, pixel, 255, 228, 225)
-    			mote.show()
+            		mote.set_pixel(channel + 1, pixel, r, g, b)
+    		    mote.show()
     return True
 
 def mote_off():
