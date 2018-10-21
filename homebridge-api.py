@@ -15,6 +15,7 @@ colour = 'B8995F'
 status = 0
 num_pixels = 16
 num_channels = 4
+loop_rainbow = 1
 
 def hex_to_rgb(value):
     value = value.lstrip('#')
@@ -32,7 +33,7 @@ def mote_on(c):
     	for channel in range(num_channels):
         	for pixel in range(num_pixels):
             		mote.set_pixel(channel + 1, pixel, r, g, b)
-    		    mote.show()
+    		        mote.show()
     return True
 
 def mote_off():
@@ -55,22 +56,24 @@ def get_status():
 
 @app.route('/mote/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
-    global status, colour, num_channels, num_pixels
+    global status, colour, num_channels, num_pixels, loop_rainbow
     if st == 'on':
         status = 1
         mote_on(colour)
         brightness = 0
-        for h in range(1000):
-            for channel in range(num_channels):
-                for pixel in range(mote.get_pixel_count(channel + 1)):
-                    hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
-                    r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
-                    mote.set_pixel(channel + 1, pixel, r, g, b)
-            mote.show()
-            time.sleep(0.01)
-            if brightness < 255: brightness += 1        
+        while loop_rainbow == 1:
+            for h in range(1000):
+                for channel in range(num_channels):
+                    for pixel in range(mote.get_pixel_count(channel + 1)):
+                        hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
+                        r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+                        mote.set_pixel(channel + 1, pixel, r, g, b)
+                mote.show()
+                time.sleep(0.01)
+                if brightness < 255: brightness += 1        
     elif st == 'off':
         status = 0
+        loop_rainbow = 1
         mote_off()
     elif st == 'status':
         status = get_status()
@@ -83,11 +86,12 @@ def get_colour():
 
 @app.route('/mote/api/v1.0/set/<string:c>', methods=['GET'])
 def set_colour(c):
-    global status, colour
+    global status, colour, loop_rainbow
     colour = c
     if status != 0:
         mote_on(colour)
         status = 1
+        loop_rainbow = 0
     return jsonify({'status': status, 'colour': colour})
 
 @app.errorhandler(404)
