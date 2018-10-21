@@ -20,20 +20,22 @@ loop_rainbow = 1
 def hex_to_rgb(value):
     value = value.lstrip('#')
     length = len(value)
+    if value == 'NANNANNAN':
+        value = 'B8995F'
     return tuple(int(value[i:i + length / 3], 16) for i in range(0, length, length / 3))
 
 def mote_on(c):
     global num_pixels
     global num_channels
     r, g, b = hex_to_rgb(c)
-    testforwhite = c.lstrip('#')
-    if  testforwhite == 'FFFFFF':
-	    exec(open("./rainbow.py"))
-    else:
-    	for channel in range(num_channels):
-        	for pixel in range(num_pixels):
-            		mote.set_pixel(channel + 1, pixel, r, g, b)
-    		        mote.show()
+    #testforwhite = c.lstrip('#')
+    # if  testforwhite == 'FFFFFF':
+	#     exec(open("./rainbow.py"))
+    # else:
+    for channel in range(num_channels):
+        for pixel in range(num_pixels):
+                mote.set_pixel(channel + 1, pixel, r, g, b)
+                mote.show()
     return True
 
 def mote_off():
