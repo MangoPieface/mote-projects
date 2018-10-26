@@ -30,7 +30,7 @@ def knightRider(lightdirection):
             for(i, chasingPixel) in enumerate(chasingPixels):
                 if (chasingPixel >= 0 and chasingPixel <= 16):
                     mote.set_pixel(channel + lightdirection, chasingPixel, r, g, b)
-#                    mote.show()
+                    mote.show()
 #                    time.sleep(0.02)
                 chasingPixels[i] = chasingPixel + 1
             
