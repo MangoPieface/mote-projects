@@ -40,7 +40,7 @@ def knightRider(lightdirection):
                 else:
                     lastPixelToRemove = max(chasingPixels)
 
-                if (lastPixelToRemove > 0 and lastPixelToRemove <= 16):
+                if (lastPixelToRemove > 0 and lastPixelToRemove < 16):
                     for pixelToTurnOff in range(lastPixelToRemove - 1):
                         mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
             mote.show()
