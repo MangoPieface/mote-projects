@@ -67,7 +67,7 @@ while True:
     #     colorsToPop.append(colorsToPop.pop(0))
 
     knightRider(1)
-    knightRider(-1)
+    #knightRider(-1)
 
     # Display solid colour test
 
