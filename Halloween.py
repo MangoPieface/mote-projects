@@ -24,6 +24,8 @@ colors = [
 
 def knightRider(lightdirection):
     for channel in range(4):
+        if channel > 4:
+            channel = 0;
         chasingPixels = [-2,-1,0]
         for pixel in range(mote.get_pixel_count(channel + 1)):
             r, g, b = colorsToPop[channel]
