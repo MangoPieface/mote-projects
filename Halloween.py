@@ -40,9 +40,14 @@ def knightRider(lightdirection):
                 else:
                     lastPixelToRemove = max(chasingPixels)
 
+                if (lastPixelToRemove > 0 and lastPixelToRemove <= 16):
+                    for pixelToTurnOff in range(lastPixelToRemove - 1):
+                        mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
+                        mote.show()
+                
                 if (lastPixelToRemove == 16):
                     for pixel in range(mote.get_pixel_count(channel + 1)):
-                            mote.set_pixel(channel + 1, pixel, 0, 0, 0)
+                            mote.set_pixel(channel + 1, pixel, r, g, b)
                             mote.show()
                             time.sleep(0.02)
         colorsToPop.append(colorsToPop.pop(0))
@@ -61,7 +66,7 @@ while True:
     #     colorsToPop.append(colorsToPop.pop(0))
 
     knightRider(1)
-    #knightRider(-1)
+    knightRider(-1)
 
     # Display solid colour test
 
