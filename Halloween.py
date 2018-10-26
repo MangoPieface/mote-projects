@@ -47,13 +47,13 @@ while True:
                     if (chasingPixel >= 0 and chasingPixel <= 16):
                         mote.set_pixel(channel + 1, chasingPixel, r, g, b)
                         mote.show()
-                        time.sleep(0.05)
+                        time.sleep(0.02)
                     chasingPixels[i] = chasingPixel + 1
                 
                     #will this turn off the pixels?
                     lastPixelToRemove = min(chasingPixels)
-                    if (lastPixelToRemove >= 0 and lastPixelToRemove <= 16):
-                        for pixelToTurnOff in range(lastPixelToRemove):
+                    if (lastPixelToRemove > 0 and lastPixelToRemove <= 16):
+                        for pixelToTurnOff in range(lastPixelToRemove - 1):
                             mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
                             mote.show()
 
