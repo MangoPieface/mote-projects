@@ -46,11 +46,11 @@ def knightRider(lightdirection):
             mote.show()
             time.sleep(0.02)
                 
-                if (lastPixelToRemove == 16):
-                    for pixel in range(mote.get_pixel_count(channel + 1)):
-                            mote.set_pixel(channel + 1, pixel, r, g, b)
-                            mote.show()
-                            time.sleep(0.02)
+            if (lastPixelToRemove == 16):
+                for pixel in range(mote.get_pixel_count(channel + 1)):
+                        mote.set_pixel(channel + 1, pixel, r, g, b)
+                        mote.show()
+                        time.sleep(0.02)
         colorsToPop.append(colorsToPop.pop(0))
 
 while True:
