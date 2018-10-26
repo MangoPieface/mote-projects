@@ -43,7 +43,7 @@ while True:
             for pixel in range(mote.get_pixel_count(channel + 1)):
                 r, g, b = colorsToPop[channel]
                 for(i, chasingPixel) in enumerate(chasingPixels):
-                    if (chasingPixel >= 0):
+                    if (chasingPixel >= 0 and chasingPixel < 15):
                         mote.set_pixel(channel + 1, chasingPixel, r, g, b)
                         mote.show()
                         time.sleep(0.01)
@@ -55,5 +55,5 @@ while True:
                         for pixelToTurnOff in range(lastPixelToRemove):
                             mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
                             mote.show()
-                            
+
         colorsToPop.append(colorsToPop.pop(0))
