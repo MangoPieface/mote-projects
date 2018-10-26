@@ -63,28 +63,28 @@ def set_status(st):
         status = 1
         mote_on(colour)
         brightness = 0
-        while loop_rainbow == 1:
-            for h in range(1000):
-                for channel in range(num_channels):
-                    for pixel in range(mote.get_pixel_count(channel + 1)):
-                        hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
-                        r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
-                        mote.set_pixel(channel + 1, pixel, r, g, b)
-                mote.show()
-                time.sleep(0.01)
-                if brightness < 255: brightness += 1        
+#        while loop_rainbow == 1:
+#            for h in range(1000):
+#                for channel in range(num_channels):
+#                    for pixel in range(mote.get_pixel_count(channel + 1)):
+#                        hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
+#                        r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+#                        mote.set_pixel(channel + 1, pixel, r, g, b)
+#                mote.show()
+#                time.sleep(0.01)
+#                if brightness < 255: brightness += 1        
     elif st == 'off':
         status = 0
         loop_rainbow = 1
         mote_off()
     elif st == 'status':
         status = get_status()
-    return jsonify({'status': status, 'colour': colour})
+    return jsonify({'main snizzle status': status, 'colour': colour})
 
 @app.route('/mote/api/v1.0/set', methods=['GET'])
 def get_colour():
     global colour
-    return jsonify({'status': status, 'colour': colour})
+    return jsonify({'get colour status': status, 'colour': colour})
 
 @app.route('/mote/api/v1.0/set/<string:c>', methods=['GET'])
 def set_colour(c):
@@ -94,7 +94,7 @@ def set_colour(c):
         mote_on(colour)
         status = 1
         loop_rainbow = 0
-    return jsonify({'status': status, 'colour': colour})
+    return jsonify({'set colour status': status, 'colour': colour})
 
 @app.errorhandler(404)
 def not_found(error):
