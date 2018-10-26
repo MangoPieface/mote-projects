@@ -40,19 +40,19 @@ while True:
     # Display solid colour test
     for step in range(4):
         for channel in range(4):
-            chasingPixels = [0,1,2]
+            chasingPixels = [-2,-1,0]
             for pixel in range(mote.get_pixel_count(channel + 1)):
                 r, g, b = colorsToPop[channel]
                 for(i, chasingPixel) in enumerate(chasingPixels):
-                    if (chasingPixel >= 0 and chasingPixel < 16):
+                    if (chasingPixel >= 0 and chasingPixel <= 16):
                         mote.set_pixel(channel + 1, chasingPixel, r, g, b)
                         mote.show()
-                        time.sleep(0.1)
+                        time.sleep(0.05)
                     chasingPixels[i] = chasingPixel + 1
                 
                     #will this turn off the pixels?
                     lastPixelToRemove = min(chasingPixels)
-                    if (lastPixelToRemove >= 0 and lastPixelToRemove < 16):
+                    if (lastPixelToRemove >= 0 and lastPixelToRemove <= 16):
                         for pixelToTurnOff in range(lastPixelToRemove):
                             mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
                             mote.show()
