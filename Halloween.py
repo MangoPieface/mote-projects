@@ -24,8 +24,6 @@ colors = [
 
 def knightRider(lightdirection):
     for channel in range(4):
-        if channel > 4:
-            channel = 0;
         chasingPixels = [-2,-1,0]
         for pixel in range(mote.get_pixel_count(channel + 1)):
             r, g, b = colorsToPop[channel]
@@ -42,10 +40,11 @@ def knightRider(lightdirection):
                 else:
                     lastPixelToRemove = max(chasingPixels)
 
-                if (lastPixelToRemove > 0 and lastPixelToRemove <= 16):
-                    for pixelToTurnOff in range(lastPixelToRemove - 1):
-                        mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
-                        mote.show()
+                if (lastPixelToRemove == 16):
+                    for pixel in range(mote.get_pixel_count(channel + 1)):
+                            mote.set_pixel(channel + 1, pixel, 0, 0, 0)
+                            mote.show()
+                            time.sleep(0.02)
         colorsToPop.append(colorsToPop.pop(0))
 
 while True:
@@ -62,7 +61,7 @@ while True:
     #     colorsToPop.append(colorsToPop.pop(0))
 
     knightRider(1)
-    knightRider(-1)
+    #knightRider(-1)
 
     # Display solid colour test
 
