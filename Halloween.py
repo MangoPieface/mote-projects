@@ -30,8 +30,8 @@ def knightRider(lightdirection):
             for(i, chasingPixel) in enumerate(chasingPixels):
                 if (chasingPixel >= 0 and chasingPixel <= 16):
                     mote.set_pixel(channel + lightdirection, chasingPixel, r, g, b)
-                    mote.show()
-                    time.sleep(0.02)
+#                    mote.show()
+#                    time.sleep(0.02)
                 chasingPixels[i] = chasingPixel + 1
             
                 #will this turn off the pixels?
@@ -43,7 +43,8 @@ def knightRider(lightdirection):
                 if (lastPixelToRemove > 0 and lastPixelToRemove <= 16):
                     for pixelToTurnOff in range(lastPixelToRemove - 1):
                         mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
-                        mote.show()
+            mote.show()
+            time.sleep(0.02)
                 
                 if (lastPixelToRemove == 16):
                     for pixel in range(mote.get_pixel_count(channel + 1)):
