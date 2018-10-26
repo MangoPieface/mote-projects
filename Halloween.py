@@ -28,7 +28,7 @@ def knightRider(lightdirection):
         for pixel in range(mote.get_pixel_count(channel + 1)):
             r, g, b = colorsToPop[channel]
             for(i, chasingPixel) in enumerate(chasingPixels):
-                if (chasingPixel >= 0 and chasingPixel <= 16):
+                if (chasingPixel >= 0 and chasingPixel < 16):
                     mote.set_pixel(channel + 1, chasingPixel + lightdirection, r, g, b)
                     mote.show()
 #                    time.sleep(0.02)
