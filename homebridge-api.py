@@ -11,7 +11,7 @@ mote.configure_channel(2, 16, False)
 mote.configure_channel(3, 16, False)
 mote.configure_channel(4, 16, False)
 
-colour = 'B8995F'
+colour = '5A0070'
 status = 0
 num_pixels = 16
 num_channels = 4
@@ -21,7 +21,7 @@ def hex_to_rgb(value):
     value = value.lstrip('#')
     length = len(value)
     if value == 'NANNANNAN':
-        value = 'B8995F'
+        value = '5A0070'
     return tuple(int(value[i:i + length / 3], 16) for i in range(0, length, length / 3))
 
 def mote_on(c):
@@ -63,16 +63,15 @@ def set_status(st):
         status = 1
         mote_on(colour)
         brightness = 0
-        while loop_rainbow == 1:
-            for h in range(1000):
-                for channel in range(num_channels):
-                    for pixel in range(mote.get_pixel_count(channel + 1)):
-                        hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
-                        r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
-                        mote.set_pixel(channel + 1, pixel, r, g, b)
-                mote.show()
-                time.sleep(0.01)
-                if brightness < 255: brightness += 1        
+        for h in range(1000):
+            for channel in range(num_channels):
+                for pixel in range(mote.get_pixel_count(channel + 1)):
+                    hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
+                    r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+                    mote.set_pixel(channel + 1, pixel, r, g, b)
+            mote.show()
+            time.sleep(0.01)
+            if brightness < 255: brightness += 1        
     elif st == 'off':
         status = 0
         loop_rainbow = 1
