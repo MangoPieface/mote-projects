@@ -25,9 +25,10 @@ colors = [
 
 
 def knightRider(lightdirection):
-    timer = .03
-    for channel in range(4):
-        for pixel in range(15):
+    timer = .01
+    
+    for pixel in range(15):
+        for channel in range(4):
             r, g, b = colorsToPop[channel]
             mote.set_pixel(channel + 1, pixel, r, g, b)
             mote.show()
@@ -39,8 +40,8 @@ def knightRider(lightdirection):
             mote.show()
             time.sleep(timer * 2)
     
-    for channel in range(4):
-        for pixel in range(15, 0, -1):
+    for pixel in range(15, 0, -1):
+        for channel in range(4):
             r, g, b = colorsToPop[channel]
             mote.set_pixel(channel + 1, pixel, r, g, b)
             mote.show()
