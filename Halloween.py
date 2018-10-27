@@ -25,7 +25,7 @@ colors = [
 
 
 def knightRider(lightdirection):
-    timer = .01
+    timer = .001
     
     for pixel in range(15):
         for channel in range(4):
