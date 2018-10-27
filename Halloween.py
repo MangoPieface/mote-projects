@@ -24,48 +24,20 @@ colors = [
 
 def knightRider(lightdirection):
     for channel in range(4):
-        chasingPixels = [-2,-1,0]
-        for pixel in range(mote.get_pixel_count(channel + 1)):
+        for pixel in range(15):
             r, g, b = colorsToPop[channel]
-            for(i, chasingPixel) in enumerate(chasingPixels):
-                if (chasingPixel >= 0 and chasingPixel < 16):
-                    mote.set_pixel(channel + 1, chasingPixel + lightdirection, r, g, b)
-                    mote.show()
-#                    time.sleep(0.02)
-                chasingPixels[i] = chasingPixel + 1
-            
-                #will this turn off the pixels?
-                if (lightdirection < 0):
-                    lastPixelToRemove = min(chasingPixels)
-                else:
-                    lastPixelToRemove = max(chasingPixels)
-
-                if (lastPixelToRemove > 0 and lastPixelToRemove < 16):
-                    for pixelToTurnOff in range(lastPixelToRemove - 1):
-                        mote.set_pixel(channel + 1, pixelToTurnOff, 0, 0, 0)
+            mote.set_pixel(channel + 1, pixel, r, g, b)
             mote.show()
             time.sleep(0.02)
-                
-            if (lastPixelToRemove == 16):
-                for pixel in range(mote.get_pixel_count(channel + 1)):
-                        mote.set_pixel(channel + 1, pixel, r, g, b)
-                        mote.show()
-                        time.sleep(0.02)
+            mote.set_pixel(channel + 1, pixel + 1, r, g, b)
+            mote.show()
+            time.sleep(0.02)
+            mote.set_pixel(channel + 1, pixel, 0, 0, 0)
+            mote.show()
         colorsToPop.append(colorsToPop.pop(0))
 
 while True:
     colorsToPop = colors    
-    # # Display solid colour test
-    # for step in range(4):
-    #     for channel in range(4):
-    #         for pixel in range(mote.get_pixel_count(channel + 1)):
-    #             r, g, b = colorsToPop[channel]
-    #             mote.set_pixel(channel + 1, pixel, r, g, b)
-    #             mote.show()
-    #             time.sleep(0.01)
-
-    #     colorsToPop.append(colorsToPop.pop(0))
-
     knightRider(1)
     #knightRider(-1)
 
