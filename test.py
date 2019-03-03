@@ -19,13 +19,12 @@ colors = [
     (255,   0,   0),
     (0,   255,   0),
     (0,     0, 255),
-    (255, 255, 255),
-    (255,   0, 255)
+    (255, 255, 255)
 ]
 
 try:
     # Display solid colour 
-    for i in range(10):
+    for i in range(5):
         for step in range(4):
             for channel in range(4):
                 for pixel in range(mote.get_pixel_count(channel + 1)):
@@ -48,15 +47,27 @@ try:
 
     # Face back in to a rainbow
     brightness = 0
-    for h in range(1000):
+    # for h in range(1000):
+    #     for channel in range(4):
+    #         for pixel in range(mote.get_pixel_count(channel + 1)):
+    #             hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
+    #             r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+    #             mote.set_pixel(channel + 1, pixel, r, g, b)
+    #     mote.show()
+    #     time.sleep(0.01)
+
+    # Fade back in to a rainbow
+    while True:
+        h = time.time() * 50
         for channel in range(4):
-            for pixel in range(mote.get_pixel_count(channel + 1)):
-                hue = (h + (channel * num_pixels * 4) + (pixel * 4)) % 360
-                r, g, b = [int(c * brightness) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
+            for pixel in range(16):
+                hue = (h + (channel * 64) + (pixel * 4)) % 360
+                r, g, b = [int(c * 255) for c in hsv_to_rgb(hue/360.0, 1.0, 1.0)]
                 mote.set_pixel(channel + 1, pixel, r, g, b)
         mote.show()
         time.sleep(0.01)
         if brightness < 255: brightness += 1
+            
 
 except KeyboardInterrupt:
     mote.clear()
