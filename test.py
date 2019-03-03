@@ -25,7 +25,7 @@ colors = [
 
 try:
     # Display solid colour 
-    for i in range(10)
+    for i in range(10):
         for step in range(4):
             for channel in range(4):
                 for pixel in range(mote.get_pixel_count(channel + 1)):
