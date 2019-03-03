@@ -19,20 +19,22 @@ colors = [
     (255,   0,   0),
     (0,   255,   0),
     (0,     0, 255),
-    (255, 255, 255)
+    (255, 255, 255),
+    (255,   0, 255),
 ]
 
 try:
-    # Display solid colour test
-    for step in range(4):
-        for channel in range(4):
-            for pixel in range(mote.get_pixel_count(channel + 1)):
-                r, g, b = colors[channel]
-                mote.set_pixel(channel + 1, pixel, r, g, b)
-                mote.show()
-                time.sleep(0.01)
+    # Display solid colour 
+    for i in 10
+        for step in range(4):
+            for channel in range(4):
+                for pixel in range(mote.get_pixel_count(channel + 1)):
+                    r, g, b = colors[channel]
+                    mote.set_pixel(channel + 1, pixel, r, g, b)
+                    mote.show()
+                    time.sleep(0.01)
 
-        colors.append(colors.pop(0))
+            colors.append(colors.pop(0))
 
     # Fade out pixels from their last state
     for step in range(170):
